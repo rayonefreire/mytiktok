@@ -18,7 +18,7 @@ type Props = {
   user: Profile;
   getVideo(): Promise<void>;
   getUser(): Promise<void>;
-  setUser: React.Dispatch<(prevState: undefined) => undefined>;
+  setUser: React.Dispatch<React.SetStateAction<Profile>>;
 }
 
 type Children = {
@@ -29,7 +29,7 @@ export const Context = createContext({} as Props);
 
 export function Provider({ children } : Children ) {
   const [videos, setVideos] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<Profile>();
 
   async function getVideo() {
     const listaVideo = await AsyncStorage.getItem("@VIDEOS");

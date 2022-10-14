@@ -9,16 +9,18 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 24,
     backgroundColor: 'black',
   },
-  header: {
-    marginTop: 50,
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 20,
-    color: 'white',
-  },
   video: {
     width: windowWidth,
-    height: windowHeight - 80,
+    height: windowHeight - 79,
   },
+  empytComponent: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 150,
+  },
+  textEmpyt: {
+    fontSize: 20,
+    color: 'gray',
+    marginBottom: 20,
+  }
 });

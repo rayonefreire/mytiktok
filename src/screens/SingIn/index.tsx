@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 
 import {
-  View
+  View,
+  Text
 } from 'react-native';
 
 import * as AuthSession from 'expo-auth-session';
@@ -21,7 +22,7 @@ type AuthResponse = {
 // AsyncStorage.clear()
 
 export function SingIn(){
-  const { setUser } = useContext(Context);
+  const { getUser } = useContext(Context);
 
   async function handleSignIn() {
     const CLIENT_ID = '74386472075-sedaq7rr2g73gbns0a15bjf6t7lv4oh5.apps.googleusercontent.com'
@@ -34,12 +35,21 @@ export function SingIn(){
     const { type, params } = await AuthSession.startAsync({ authUrl }) as AuthResponse;
 
     if (type === 'success') {
-      setUser(JSON.parse(params.access_token));
+      const response = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${params.access_token}`);
+      const userinfo = await response.json();
+
+      AsyncStorage.setItem("@USER", JSON.stringify(userinfo));
+      getUser();
     }
   }
 
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>
+        Olá, seja bem vindo! {"\n"}
+        Faça login para entrar
+      </Text>
+
       <Button
         title="Entrar com o Google"
         onPress={handleSignIn}

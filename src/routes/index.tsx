@@ -7,5 +7,5 @@ import { Routes } from './index.routes';
 export function AppRoutes() {
   const { signed } = useContext(Context);
 
-  return signed ? <SingIn /> : <Routes />
+  return !signed ? <SingIn /> : <Routes />
 }

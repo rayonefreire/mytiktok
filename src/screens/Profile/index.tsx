@@ -5,28 +5,47 @@ import {
   Text,
   TouchableOpacity,
   SafeAreaView,
-  Image
+  Image,
+  Alert,
+  ActivityIndicator
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { styles } from './styles';
 import { Context } from '../../context';
 
-
 export function Profile(){
   const { user, setUser } = useContext(Context);
-  
-  async function loadProfile() {
-    const response = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?alt=json&access_token=${user}`);
-    const userinfo = await response.json();
-    console.log(userinfo);
+  const [isLoading, setIsLoading] = useState(false);
 
-    setUser(userinfo);
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size='large' color="#027DFF" />
+      </View>
+    );
   }
 
-  useEffect(() => {
-    loadProfile();
-  }, []);
+  function handleLogOut() {
+    Alert.alert("Sair", "Se você sair do app todo os vídeo serão apagados do aplicativo. Deseja sair?", [
+      {
+        text: "Sim",
+        onPress: () => {
+          setIsLoading(true);
+          setTimeout(() => {
+            AsyncStorage.clear();
+            setUser(null);
+          }, 2000);
+        },
+      },
+      {
+        text: "Não",
+        onPress: () => {return},
+      }
+    ]);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,6 +54,7 @@ export function Profile(){
       
         <TouchableOpacity
           activeOpacity={0.7}
+          onPress={handleLogOut}
         >
           <Ionicons name="exit-outline" size={28} color="black" />
         </TouchableOpacity>
@@ -45,7 +65,13 @@ export function Profile(){
           source={{ uri: user.picture }}
           style={styles.image}
         />
-        <Text style={styles.name}>{ user.name }</Text>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.name}>Olá, </Text>
+          <Text style={[styles.name, { fontWeight: 'bold' } ]}>{ user.given_name }</Text>
+        </View>
+
+        <Text style={styles.email}>{ user.email }</Text>
       </View>
 
     </SafeAreaView>

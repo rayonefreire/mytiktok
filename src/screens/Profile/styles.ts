@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
@@ -20,12 +20,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    height: 110,
-    width: 110,
-    borderRadius: 55,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
     marginBottom: 25,
   },
   name: {
     fontSize: 20,
+  },
+  email: {
+    fontSize: 18,
+    color: 'gray',
+    marginTop: 5,
   }
 });

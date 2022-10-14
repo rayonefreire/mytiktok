@@ -48,7 +48,7 @@ export function Routes() {
             iconName = focused
               ? 'add-circle'
               : 'add-circle-outline';
-          } else if (route.name === 'Profile') {
+          } else if (route.name === 'Perfil') {
             iconName = focused
               ? 'ios-person'
               : 'ios-person-outline'

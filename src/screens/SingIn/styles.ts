@@ -5,6 +5,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems :"center",
-    paddingHorizontal: 24,
+    paddingHorizontal: 54,
+  },
+  text: {
+    fontSize: 18,
+    color: 'black',
+    textAlign: 'center',
+    lineHeight: 25,
+    marginBottom: 30,
   }
 });
